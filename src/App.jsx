@@ -1,20 +1,34 @@
-import React from "react";
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 import Navbar from "./ui/components/Navbar/Navbar";
 import MovieList from "./ui/components/MovieList/MovieList";
+import SearchBar from "./ui/components/SearchBar/SearchBar";
 
 const App = () => {
-  return(
-    <div className='app'>
-      <Navbar/>
-      <MovieList/>
+  const [movies, setMovies] = useState([]);
+  const handleSearch = async (query) => {
+    try {
+      const response = await fetch(
+        `https://movies2cbackend-production.up.railway.app/api/search/movie?title=${query}`
+      );
+
+      const data = await response.json();
+      setMovies(data);
+    } catch (error) {
+      console.error("Search error:", error);
+    }
+  };
+
+  return (
+    <div className="app">
+      <Navbar />
+      <SearchBar onSearch={handleSearch} />
+      <MovieList movies={movies} />
     </div>
   );
 };
 
 export default App;
-
-
 
 // import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 // import "./App.css";
