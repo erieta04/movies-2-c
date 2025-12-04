@@ -4,6 +4,7 @@ import './MovieList.css';
 import MovieCard from "./MovieCard";
 
 const MovieList = () => {
+    //θα μπει το useEffect
     const trendingMoviesData = {
 "page": 1,
 "results": [
@@ -442,7 +443,7 @@ const MovieList = () => {
                         {/* <li className="movie_filter_item active">8+ Star</li>
                         <li className="movie_filter_item">7+ Star</li>
                         <li className="movie_filter_item">6+ Star</li> */}
-                        <li className="movie_filter_item">Top 10</li>
+                        <li className="movie_filter_item">Trending</li>
                     </ul>
 
                     {/* <select name="" id="" className="movie_sorting">
@@ -456,9 +457,8 @@ const MovieList = () => {
                     </select> */}
                 </div>
             </header>
-            <div className='movie_cards'>
-                <MovieCard/>
-                {trendingMovies.map(movie => (<div>{movie.title}<MovieCard></MovieCard></div>))}
+            <div className='movie_cards'> 
+                {trendingMovies.map(movie => (<MovieCard movieName = {movie.title} moviePoster = {movie.poster_path} movieDate = {movie.release_date} movieRating = {movie.vote_average} movieDescription = {movie.overview} ></MovieCard>))}
             </div>
         </section>
     );
