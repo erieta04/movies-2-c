@@ -8,34 +8,41 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    const apiUrl = "https://movies2cbackend-production.up.railway.app/api/auth/login"; // Το σωστό endpoint για login
+
     try {
-      const response = await fetch(
-        "https://movies2cbackend-production.up.railway.app/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       if (!response.ok) {
-        setError("Λάθος email ή password");
+        // Το αίτημα έφτασε στον server, αλλά απέτυχε (π.χ. 401 Unauthorized, 400 Bad Request)
+        let errorMsg = `Αποτυχία σύνδεσης (${response.status} ${response.statusText}). Ελέγξτε τα στοιχεία.`;
+        try {
+          // Προσπάθεια ανάγνωσης του σφάλματος από το σώμα της απάντησης (αν είναι JSON)
+          const errorData = await response.json();
+          errorMsg = errorData.message || errorMsg;
+        } catch (e) {
+          // Αγνοούμε το σφάλμα αν η απάντηση δεν είναι JSON
+          console.error("Failed to parse error response body:", e);
+        }
+        setError(errorMsg);
         return;
       }
 
       const data = await response.json();
       console.log("Login success:", data);
 
-      // Αποθήκευση token
-      localStorage.setItem("token", data.token);
-
-      // Redirect πίσω στην αρχική σελίδα
+      // Handle successful login (e.g., store token, redirect)
       window.location.href = "/";
     } catch (err) {
-      console.error("Login error:", err);
-      setError("Πρόβλημα στον server");
+      console.error("Login network error:", err);
+      // Το σφάλμα εδώ υποδηλώνει πρόβλημα σύνδεσης (π.χ. server down, λάθος πρωτόκολλο URL)
+      setError("Αδύνατη σύνδεση με τον server. Ελέγξτε τη σύνδεσή σας ή δοκιμάστε αργότερα.");
     }
   };
 
@@ -51,7 +58,7 @@ export default function LoginPage() {
         width: "100vw",
       }}
     >
-      <h1 style={{ fontSize: "40px" }}>Login</h1>
+      <h1 style={{ fontSize: "40px" }}>Σύνδεση (Login)</h1>
 
       <form
         onSubmit={handleLogin}
@@ -92,7 +99,7 @@ export default function LoginPage() {
             fontSize: "16px",
           }}
         >
-          Login
+          Σύνδεση
         </button>
       </form>
 

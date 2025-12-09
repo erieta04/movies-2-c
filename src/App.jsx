@@ -5,6 +5,7 @@ import MovieList from "./ui/components/MovieList/MovieList";
 import SearchBar from "./ui/components/SearchBar/SearchBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage"; // Νέα εισαγωγή
 
 const App = () => {
   const [movies, setMovies] = useState([]);
@@ -35,13 +36,13 @@ const App = () => {
           }
         />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} /> {/* Νέα διαδρομή για Sign Up */}
       </Routes>
     </BrowserRouter>
   );
 };
 
 export default App;
-
 // import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 // import "./App.css";
 // import Homepage from "./pages/Homepage";

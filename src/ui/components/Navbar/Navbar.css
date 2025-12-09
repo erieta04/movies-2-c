@@ -25,6 +25,14 @@
   text-decoration: none;
   padding: 0 15px;
 }
+
+/* Αφαιρούμε το padding για τα links που περιέχουν κουμπιά */
+.login-button-wrapper, 
+.signup-button-wrapper {
+    padding: 0;
+}
+
+
 .login-btn {
   padding: 8px 15px;
   background-color: #ff4757;
@@ -33,9 +41,18 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 15px;
-  margin-left: 20px;
+}
+
+/* Εφαρμόζουμε το σωστό margin στο κουμπί Login για να απέχει από το προηγούμενο link */
+.login-button-wrapper .login-btn {
+    margin-left: 20px;
 }
 
 .login-btn:hover {
   background-color: #e84118;
+}
+
+/* Εφαρμόζουμε μικρότερο margin στο κουμπί Sign Up για να απέχει από το Login */
+.signup-button-wrapper .login-btn {
+  margin-left: 5px; 
 }

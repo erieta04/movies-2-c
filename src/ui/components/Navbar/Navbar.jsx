@@ -12,8 +12,14 @@ const Navbar = () => {
         <Link to="/">Actors</Link>
         <Link to="/">Directors</Link>
 
-        <Link to="/login">
-          <button className="login-btn">Login / Sign up</button>
+        {/* Link για Login */}
+        <Link to="/login" className="login-button-wrapper"> 
+          <button className="login-btn">Login</button>
+        </Link>
+        
+        {/* Νέο Link για Sign Up */}
+        <Link to="/signup" className="signup-button-wrapper">
+          <button className="login-btn signup-btn">Sign Up</button>
         </Link>
       </div>
     </nav>
