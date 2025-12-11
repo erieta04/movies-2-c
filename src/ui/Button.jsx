@@ -1,12 +1,8 @@
 import "./Button.css";
-function Button({ onClick }) {
+function Button({ onClick, children }) {
   return (
-    <button className="button" onClick={onClick}>
-      <span className="shadow"></span>
-      <span className="edge"></span>
-      <div className="front">
-        <span>Click me</span>
-      </div>
+    <button className="login-btn signup-btn" onClick={onClick}>
+      {children}
     </button>
   );
 }

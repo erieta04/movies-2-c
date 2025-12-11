@@ -1,5 +1,5 @@
-// function MoviePage() {
-//   return <div>MOVIEPAGE</div>;
-// }
+function MoviePage() {
+  return <div>MOVIEPAGE</div>;
+}
 
-// export default MoviePage;
+export default MoviePage;

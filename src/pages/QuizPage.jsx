@@ -1,5 +1,5 @@
-// function QuizPage() {
-//   return <div>QUIZ</div>;
-// }
+function QuizPage() {
+  return <div>QUIZ</div>;
+}
 
-// export default QuizPage;
+export default QuizPage;

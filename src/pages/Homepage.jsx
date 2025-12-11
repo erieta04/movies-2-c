@@ -1,35 +1,20 @@
-// import { useState } from "react";
-// import Button from "../ui/Button";
-// import Header from "../ui/Header";
-// import Row from "../ui/Row";
-// import "./Homepage.css";
+import { useState } from "react";
+import Button from "../ui/Button";
+import Row from "../ui/Row";
+import "./Homepage.css";
+import Navbar from "../ui/components/Navbar/Navbar";
+import SearchBar from "../ui/components/SearchBar/SearchBar";
+import MovieList from "../ui/components/MovieList/MovieList";
 
-// function Homepage() {
-//   const [movieName, setMovieName] = useState("TAINIA1");
+function Homepage() {
+  return (
+    <div>
+      <Navbar />
+      <SearchBar />
 
-//   return (
-//     <div className="container">
-//       <Header></Header>
-//       <h1>HOMEPAGE</h1>
-//       <h2>{movieName}</h2>
-//       <Row type="vertical">
-//         <Row gap="1rem">
-//           <Button onClick={() => setMovieName("TAINIA2")}></Button>
-//           <Button></Button>
-//           <Button></Button>
-//           <Button></Button>
-//           <Button></Button>
-//         </Row>
-//         <Row gap="1rem">
-//           <Button></Button>
-//           <Button></Button>
-//           <Button></Button>
-//           <Button></Button>
-//           <Button></Button>
-//         </Row>
-//       </Row>
-//     </div>
-//   );
-// }
+      <MovieList />
+    </div>
+  );
+}
 
-// export default Homepage;
+export default Homepage;

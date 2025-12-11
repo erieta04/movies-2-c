@@ -1,5 +1,5 @@
-// function Profile() {
-//   return <div>PROFILE</div>;
-// }
+function Profile() {
+  return <div>PROFILE</div>;
+}
 
-// export default Profile;
+export default Profile;
