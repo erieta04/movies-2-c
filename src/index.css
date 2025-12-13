@@ -9,13 +9,13 @@
   box-sizing: border-box;
 }
 
-body{
-  background-color: #101010;
-  color: #fff ;
+body {
+  background-color: #010101d4;
+  color: #fff;
   font-family: "Montserrat", sans-serif;
 }
 
-.align_center{
-  display : flex;
+.align_center {
+  display: flex;
   align-items: center;
 }
