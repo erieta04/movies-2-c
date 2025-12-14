@@ -19,15 +19,8 @@ const Navbar = () => {
 
       <div className="navbar_links">
         <Link to="/">Home</Link>
-        <Link to="/">Movies</Link>
-        <Link to="/">Shows</Link>
+        <Link to="/">Quizzes</Link>
 
-        {/* Link για Login */}
-        {/* <Link to="/login" className="login-button-wrapper">
-          <Button>Login</Button>
-        </Link> */}
-
-        {/* Νέο Link για Sign Up */}
         {isUserLoggedIn ? (
           <Row gap="0.5rem">
             <Link to="/profile">

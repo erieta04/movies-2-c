@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 const MovieList = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
+
   useEffect(function () {
     fetch(
       `https://movies2cbackend-production.up.railway.app/api/movies/trending`
@@ -23,7 +24,27 @@ const MovieList = () => {
           </ul>
         </div>
       </header>
-      <div className="movie_cards">
+      <div className="carousel_container">
+        <div
+          className="carousel"
+          mask="true"
+          style={{ "--items": trendingMovies.length }}
+        >
+          {trendingMovies.map((movie, i) => (
+            <article style={{ "--i": i }} key={i}>
+              <MovieCard
+                key={movie.id}
+                movieName={movie.title}
+                moviePoster={movie.poster_path}
+                movieDate={movie.release_date}
+                movieRating={movie.vote_average}
+                movieDescription={movie.overview}
+              ></MovieCard>
+            </article>
+          ))}
+        </div>
+      </div>
+      {/* <div className="movie_cards">
         {trendingMovies.map((movie) => (
           <MovieCard
             key={movie.id}
@@ -34,7 +55,7 @@ const MovieList = () => {
             movieDescription={movie.overview}
           ></MovieCard>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 };

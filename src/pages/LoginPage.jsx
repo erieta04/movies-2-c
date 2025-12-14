@@ -25,14 +25,14 @@ export default function LoginPage() {
           </Row>
           <Row type="vertical" gap="1rem">
             <input
-              className="input"
+              className="login_input"
               placeholder="Email"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></input>
             <input
-              className="input"
+              className="login_input"
               placeholder="Password"
               type="text"
               value={password}

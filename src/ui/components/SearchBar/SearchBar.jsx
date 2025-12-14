@@ -1,45 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Searchbar.css";
+import { HiMiniMagnifyingGlass } from "react-icons/hi2";
+import Homepage from "../../../pages/Homepage";
 
-export default function SearchBar({ onResults }) {
-  const [query, setQuery] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // if (query.trim() === "") return;
-    // onSearch(query);
-    if (!query.trim()) return;
-
-    try {
-      const res = await fetch(
-        `https://movies2cbackend-production.up.railway.app/api/search/movie?query=${query}`
-      );
-
-      if (!res.ok) throw new Error("Search failed");
-
-      const data = await res.json();
-
-      // Στέλνουμε τα αποτελέσματα πίσω στον parent component
-      onResults(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+function SearchBar(props) {
   return (
-    <div className="searchbar-container">
-      <form onSubmit={handleSubmit} className="searchbar-form">
-        <input
-          type="text"
-          placeholder="Search movie..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="search-input"
-        />
-        <button type="submit" className="search-btn">
-          Search
-        </button>
-      </form>
+    <div className="searchBox">
+      <input
+        className="searchInput"
+        type="text"
+        name=""
+        placeholder="Search"
+        value={props.query}
+        onChange={(e) => props.setQuery(e.target.value)}
+      ></input>
+      <HiMiniMagnifyingGlass></HiMiniMagnifyingGlass>
     </div>
   );
 }
+
+export default SearchBar;

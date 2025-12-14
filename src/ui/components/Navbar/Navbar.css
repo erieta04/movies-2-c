@@ -4,6 +4,14 @@
   justify-content: space-between;
   padding: 0 30px;
   border-bottom: 1px solid #e6e6e6;
+  /* position: fixed; */
+  font-size: 14px;
+  background-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.7) 10%,
+    transparent
+  );
+  z-index: 1;
 }
 
 .navbar > h1 {
