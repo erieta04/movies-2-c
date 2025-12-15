@@ -6,6 +6,7 @@ import Row from "../ui/Row";
 
 function MoviePage() {
   const [movie, setMovie] = useState({});
+  const [members, setMembers] = useState({});
   const params = useParams();
   const id = params.id.slice(1);
   const [selectedTab, setSelectedTab] = useState("details");
@@ -16,10 +17,21 @@ function MoviePage() {
         `https://movies2cbackend-production.up.railway.app/api/movie?id=${id}`
       );
       const data = await res.json();
-      console.log(data);
       setMovie(data);
     }
     getMovieDetails();
+  }, []);
+
+  useEffect(function(){
+    async function getCastDetails(){
+      const res = await fetch(
+        `https://movies2cbackend-production.up.railway.app/api/movie/cast?id=${id}`
+      );
+      const data = await res.json();
+      console.log(data);
+      setMembers(data);
+    }
+    getCastDetails();
   }, []);
 
   return (
@@ -79,7 +91,7 @@ function MoviePage() {
             ) : selectedTab === "comments" ? (
               <UserComments />
             ) : (
-              <MovieCastView/>
+              <MovieCastView members={members}/>
             )}
           </div>
         </Row>
@@ -90,7 +102,6 @@ function MoviePage() {
 export default MoviePage;
 
 function MovieDetailsView({ movie }) {
-  console.log(movie);
   return (
     <Row type="vertical" content="center" gap="2rem" margin="1rem">
       <Row type="horizontal" gap="1rem">
@@ -121,6 +132,48 @@ function UserComments() {
   return <div>test</div>;
 }
 
-function MovieCastView(){
-  return <div>cast</div>;
+function MovieCastView({members}){
+  return(
+    <Row type="vertical" content="center" gap="1rem" margin="1rem">
+      <Row type="horizontal" gap="1rem">
+        <h1>Actors</h1>
+      </Row>
+      {/* //////////////////////////////// */}
+      <Row type="horizontal" gap="2rem" margin="1rem">
+        {members.cast?.slice(0,5).map((cast) => (
+           <div key={cast.id} style={{ textAlign: "center" }}>
+            <img
+               src={
+               cast.profile_path ? `https://image.tmdb.org/t/p/w185${cast.profile_path}`: "/no-avatar.png"}
+               alt={cast.name}
+               style={{
+               width: "120px",
+               borderRadius: "10px"
+              }}
+            />
+           </div>
+        ))}
+    </Row>
+      {/* ///////////////////////////////////// */}
+        <Row type="horizontal" gap="1rem" margin="0.1rem">  
+        {members.cast?.slice(0,5).map((cast,i) => (
+          <div key={cast.name}>
+            {cast.name}
+            {members.cast.length == i + 1? " " : ","}
+          </div>
+        ))}
+        </Row>
+        <Row type="horizontal" gap="2rem" margin="0.1rem">
+          <h1>Directors</h1>
+        </Row>
+        <Row type="horizontal" gap="1rem" margin="0.1rem">  
+        {members.crew?.slice(0,5).map((crew,i) => (
+          <div key={crew.name}>
+            {crew.name}
+            {members.crew.length == i + 1? " " : ","}
+          </div>
+        ))}
+        </Row>
+    </Row>
+  );
 }
