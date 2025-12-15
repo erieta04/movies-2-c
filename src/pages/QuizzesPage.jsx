@@ -4,8 +4,6 @@ import Navbar from "../ui/components/Navbar/Navbar";
 import SearchBar from "../ui/components/SearchBar/SearchBar";
 
 function QuizzesPage() {
-  
-  
   const [query, setQuery] = useState("");
   const [quizzes, setQuizzes] = useState([]);
   const [error, setError] = useState("");
@@ -62,17 +60,12 @@ function QuizzesPage() {
   }, []);
 
   const categories = [
-    { id: 1, title: "Ελληνικός Κινηματογράφος", icon: "🎭", color: "#8b5cf6" },
-    { id: 2, title: "Χόλιγουντ Κλασικά", icon: "🎬", color: "#ef4444" },
-    { id: 3, title: "Νικητές Όσκαρ", icon: "🏆", color: "#f59e0b" },
-    { id: 4, title: "Επιστημονική Φαντασία", icon: "🚀", color: "#06b6d4" },
-    { id: 5, title: "Κωμωδίες", icon: "😂", color: "#f97316" },
-    { id: 6, title: "Δράμα & Ρομάντζο", icon: "❤️", color: "#a855f7" },
-   { id: 1, title: "Χόλιγουντ Κλασικά", icon: "🎬", color: "#ef4444" },
+    { id: 1, title: "Χόλιγουντ Κλασικά", icon: "🎬", color: "#ef4444" },
     { id: 2, title: "Νικητές Όσκαρ", icon: "🏆", color: "#f59e0b" },
     { id: 3, title: "Επιστημονική Φαντασία", icon: "🚀", color: "#06b6d4" },
     { id: 4, title: "Κωμωδίες", icon: "😂", color: "#f97316" },
     { id: 5, title: "Δράμα & Ρομάντζο", icon: "❤️", color: "#a855f7" },
+    { id: 6, title: "Δράση & Περιπέτεια", icon: "💥", color: "#10b981" },
   ];
 
   
@@ -91,7 +84,7 @@ function QuizzesPage() {
               left: `${(i * 7) % 100}%`,
               animationDelay: `${i * 0.3}s`,
               background: `radial-gradient(circle, ${
-                ['#8b5cf6', '#3b82f6', '#06b6d4', '#a855f7'][i % 4]
+                ['#ef4444', '#f59e0b', '#06b6d4', '#a855f7'][i % 4]
               }20, transparent)`
             }}
           />
