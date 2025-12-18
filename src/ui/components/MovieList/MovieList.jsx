@@ -7,17 +7,17 @@ const MovieList = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [comedyMovies, setComedyMovies] = useState([]);
   const [actionMovies, setActionMovies] = useState([]);
-  const [animationMovies, setAnimationMovies]= useState([]);
-  const [horrorMovies, setHorrorMovies]= useState([]);
-  const [criminalMovies, setCriminalMovies]= useState([]);
+  const [animationMovies, setAnimationMovies] = useState([]);
+  const [horrorMovies, setHorrorMovies] = useState([]);
+  const [criminalMovies, setCriminalMovies] = useState([]);
 
- useEffect(function () {
+  useEffect(function () {
     fetch(
       `https://movies2cbackend-production.up.railway.app/api/movies/trending`
     )
       .then((res) => res.json())
       .then((data) => setTrendingMovies(data.results));
-  }, []); 
+  }, []);
 
   useEffect(function () {
     fetch(
@@ -35,7 +35,7 @@ const MovieList = () => {
       .then((data) => setActionMovies(data.results));
   }, []);
 
-    useEffect(function () {
+  useEffect(function () {
     fetch(
       `https://movies2cbackend-production.up.railway.app/api/movies/genre?genreId=16`
     )
@@ -43,7 +43,7 @@ const MovieList = () => {
       .then((data) => setAnimationMovies(data.results));
   }, []);
 
-    useEffect(function () {
+  useEffect(function () {
     fetch(
       `https://movies2cbackend-production.up.railway.app/api/movies/genre?genreId=27`
     )
@@ -51,14 +51,13 @@ const MovieList = () => {
       .then((data) => setHorrorMovies(data.results));
   }, []);
 
-    useEffect(function () {
+  useEffect(function () {
     fetch(
       `https://movies2cbackend-production.up.railway.app/api/movies/genre?genreId=80`
     )
       .then((res) => res.json())
       .then((data) => setCriminalMovies(data.results));
   }, []);
-
 
   return (
     <section className="movie_list">
@@ -104,7 +103,7 @@ const MovieList = () => {
       </div> */}
 
       <header className="align_center movie_list_header">
-        <h2 className="align_center movie_list_heading">Comedie Movies</h2>
+        <h2 className="align_center movie_list_heading">Comedy Movies</h2>
         <div className="align_center movie_list_fs">
           {/* <ul className="align_center movie_filter">
             <li className="movie_filter_item">Trending</li>
@@ -132,7 +131,7 @@ const MovieList = () => {
         </div>
       </div>
 
-       <header className="align_center movie_list_header">
+      <header className="align_center movie_list_header">
         <h2 className="align_center movie_list_heading">Action Movies</h2>
         <div className="align_center movie_list_fs">
           {/* <ul className="align_center movie_filter">
@@ -247,9 +246,7 @@ const MovieList = () => {
           ))}
         </div>
       </div>
-
     </section>
-    
   );
 };
 export default MovieList;
