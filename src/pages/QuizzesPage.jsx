@@ -12,7 +12,7 @@ function QuizzesPage() {
 
   useEffect(() => {
     const controller = new AbortController();
-    
+
     async function fetchQuizzes() {
       try {
         setError("");
@@ -46,15 +46,14 @@ function QuizzesPage() {
     return () => controller.abort();
   }, [query]);
 
-  
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({
         x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight
+        y: e.clientY / window.innerHeight,
       });
     };
-    
+
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
@@ -68,13 +67,11 @@ function QuizzesPage() {
     { id: 6, title: "Δράση & Περιπέτεια", icon: "💥", color: "#10b981" },
   ];
 
-  
   const parallaxX = mousePosition.x * 20 - 10;
   const parallaxY = mousePosition.y * 20 - 10;
 
   return (
     <div style={styles.container}>
-      
       <div style={styles.particles}>
         {[...Array(15)].map((_, i) => (
           <div
@@ -84,15 +81,14 @@ function QuizzesPage() {
               left: `${(i * 7) % 100}%`,
               animationDelay: `${i * 0.3}s`,
               background: `radial-gradient(circle, ${
-                ['#ef4444', '#f59e0b', '#06b6d4', '#a855f7'][i % 4]
-              }20, transparent)`
+                ["#ef4444", "#f59e0b", "#06b6d4", "#a855f7"][i % 4]
+              }20, transparent)`,
             }}
           />
         ))}
       </div>
 
-      
-      <div 
+      <div
         style={{
           ...styles.mouseLight,
           transform: `translate(${parallaxX}px, ${parallaxY}px)`,
@@ -100,33 +96,31 @@ function QuizzesPage() {
       />
 
       <Navbar />
-      
+
       <div style={styles.content}>
         <div style={styles.header}>
-          <div style={{ position: "relative", zIndex: 2 }}>
-            <SearchBar query={query} setQuery={setQuery} />
-          </div>
-          
           {query.length > 0 ? (
             <div style={styles.searchResults}>
               <h3 style={styles.resultsTitle}>
-                {quizzes.length > 0 
-                  ? `✨ Βρέθηκαν ${quizzes.length} quizzes` 
+                {quizzes.length > 0
+                  ? `✨ Βρέθηκαν ${quizzes.length} quizzes`
                   : "🎭 Δεν βρέθηκαν αποτελέσματα"}
               </h3>
               {quizzes.map((quiz, index) => (
-                <div 
-                  key={quiz.id} 
+                <div
+                  key={quiz.id}
                   style={{
                     ...styles.quizCard,
-                    animationDelay: `${index * 0.1}s`
+                    animationDelay: `${index * 0.1}s`,
                   }}
                   className="fade-in"
                 >
                   <div style={styles.quizIcon}>🎬</div>
                   <div>
                     <h4 style={styles.quizTitle}>{quiz.title}</h4>
-                    <p style={styles.quizDesc}>{quiz.description || "Κινηματογραφικό quiz"}</p>
+                    <p style={styles.quizDesc}>
+                      {quiz.description || "Κινηματογραφικό quiz"}
+                    </p>
                   </div>
                   <div style={styles.quizArrow}>→</div>
                 </div>
@@ -134,7 +128,6 @@ function QuizzesPage() {
             </div>
           ) : (
             <div style={{ position: "relative", zIndex: 2 }}>
-              
               <div style={styles.titleContainer}>
                 <h1 style={styles.title}>
                   <span style={styles.titleText}>
@@ -144,60 +137,69 @@ function QuizzesPage() {
                 </h1>
                 <div style={styles.titleUnderline} />
               </div>
-              
+
               <p style={styles.subtitle}>
-                Επιλέξτε μια κατηγορία για να ξεκινήσετε την κινηματογραφική σας διαδρομή
+                Επιλέξτε μια κατηγορία για να ξεκινήσετε την κινηματογραφική σας
+                διαδρομή
                 <span style={styles.subtitleIcon}> 🍿</span>
               </p>
-              
+
               <div style={styles.grid}>
-                {categories.map(cat => {
+                {categories.map((cat) => {
                   const isHovered = hoveredId === cat.id;
-                  
+
                   return (
                     <div
                       key={cat.id}
                       style={{
                         ...styles.categoryCard,
                         borderColor: isHovered ? cat.color : "transparent",
-                        boxShadow: isHovered 
+                        boxShadow: isHovered
                           ? `0 20px 40px ${cat.color}20, 0 0 0 1px ${cat.color}20`
                           : "0 4px 20px rgba(0, 0, 0, 0.1)",
-                        transform: isHovered 
-                          ? "translateY(-8px) scale(1.02)" 
+                        transform: isHovered
+                          ? "translateY(-8px) scale(1.02)"
                           : "translateY(0) scale(1)",
                       }}
                       onMouseEnter={() => setHoveredId(cat.id)}
                       onMouseLeave={() => setHoveredId(null)}
                     >
-                      
-                      <div 
+                      <div
                         style={{
                           ...styles.iconGlow,
                           opacity: isHovered ? 1 : 0,
                           background: `radial-gradient(circle, ${cat.color}30, transparent 70%)`,
                         }}
                       />
-                      
-                      <div style={{
-                        ...styles.iconWrapper,
-                        background: isHovered 
-                          ? `linear-gradient(135deg, ${cat.color}30, ${cat.color}10)`
-                          : "rgba(255, 255, 255, 0.05)",
-                        borderColor: isHovered ? cat.color : "rgba(255, 255, 255, 0.1)",
-                        transform: isHovered ? "scale(1.1) rotate(5deg)" : "scale(1) rotate(0deg)",
-                      }}>
-                        <span style={{
-                          ...styles.icon,
-                          transform: isHovered ? "scale(1.2)" : "scale(1)",
-                        }}>{cat.icon}</span>
+
+                      <div
+                        style={{
+                          ...styles.iconWrapper,
+                          background: isHovered
+                            ? `linear-gradient(135deg, ${cat.color}30, ${cat.color}10)`
+                            : "rgba(255, 255, 255, 0.05)",
+                          borderColor: isHovered
+                            ? cat.color
+                            : "rgba(255, 255, 255, 0.1)",
+                          transform: isHovered
+                            ? "scale(1.1) rotate(5deg)"
+                            : "scale(1) rotate(0deg)",
+                        }}
+                      >
+                        <span
+                          style={{
+                            ...styles.icon,
+                            transform: isHovered ? "scale(1.2)" : "scale(1)",
+                          }}
+                        >
+                          {cat.icon}
+                        </span>
                       </div>
-                      
+
                       <h3 style={styles.categoryTitle}>{cat.title}</h3>
-                      
-                      
+
                       <div style={styles.progressBar}>
-                        <div 
+                        <div
                           style={{
                             ...styles.progressFill,
                             width: isHovered ? "100%" : "60%",
@@ -205,16 +207,21 @@ function QuizzesPage() {
                           }}
                         />
                       </div>
-                      
-                      <div style={{
-                        ...styles.arrow,
-                        color: isHovered ? cat.color : "#64748b",
-                        transform: isHovered ? "translateX(8px)" : "translateX(0)",
-                      }}>→</div>
 
-                      
+                      <div
+                        style={{
+                          ...styles.arrow,
+                          color: isHovered ? cat.color : "#64748b",
+                          transform: isHovered
+                            ? "translateX(8px)"
+                            : "translateX(0)",
+                        }}
+                      >
+                        →
+                      </div>
+
                       {isHovered && (
-                        <div 
+                        <div
                           style={{
                             ...styles.shineEffect,
                             background: `linear-gradient(90deg, transparent, ${cat.color}20, transparent)`,
@@ -226,7 +233,6 @@ function QuizzesPage() {
                 })}
               </div>
 
-              
               <div style={styles.footer}>
                 <div style={styles.footerContent}>
                   <span style={styles.footerIcon}>🎞️</span>
@@ -241,7 +247,6 @@ function QuizzesPage() {
         </div>
       </div>
 
-    
       <div style={styles.vignette}></div>
 
       <style jsx>{`
@@ -255,16 +260,17 @@ function QuizzesPage() {
             transform: translateY(0);
           }
         }
-        
+
         @keyframes float {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateY(0);
           }
           50% {
             transform: translateY(-10px);
           }
         }
-        
+
         @keyframes particleFloat {
           0% {
             transform: translateY(0) rotate(0deg);
@@ -281,7 +287,7 @@ function QuizzesPage() {
             opacity: 0;
           }
         }
-        
+
         .fade-in {
           animation: fadeIn 0.6s ease forwards;
           opacity: 0;
@@ -294,7 +300,8 @@ function QuizzesPage() {
 const styles = {
   container: {
     minHeight: "100vh",
-    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
+    background:
+      "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
     position: "relative",
     overflow: "hidden",
   },
@@ -320,7 +327,8 @@ const styles = {
     width: "400px",
     height: "400px",
     borderRadius: "50%",
-    background: "radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)",
+    background:
+      "radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)",
     pointerEvents: "none",
     zIndex: 0,
     transition: "transform 0.1s ease-out",
@@ -533,7 +541,8 @@ const styles = {
     left: 0,
     right: 0,
     bottom: 0,
-    background: "radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.3) 100%)",
+    background:
+      "radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.3) 100%)",
     pointerEvents: "none",
     zIndex: 1,
   },
