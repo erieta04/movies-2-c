@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< Updated upstream
 import Navbar from "../ui/components/Navbar/Navbar";
 import SearchBar from "../ui/components/SearchBar/SearchBar";
+=======
+>>>>>>> Stashed changes
 import "./QuizzesPage.css";
 
 function QuizzesPage() {
   const navigate = useNavigate();
+<<<<<<< Updated upstream
   const [query, setQuery] = useState("");
   const [quizzes, setQuizzes] = useState([]);
+=======
+>>>>>>> Stashed changes
   const [hoveredId, setHoveredId] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+<<<<<<< Updated upstream
 
   useEffect(() => {
     async function fetchCategories() {
@@ -81,9 +88,60 @@ function QuizzesPage() {
         if (err.name !== "AbortError") {
           console.error(err.message);
         }
+=======
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await fetch('http://localhost:8080/api/quizzes/categories');
+        const data = await res.json();
+        
+        const categoryIcons = {
+          "Hollywood Classics": "🎬",
+          "Oscar Winners": "🏆",
+          "Science Fiction": "🚀",
+          "Comedy": "😂",
+          "Drama & Romance": "❤️",
+          "Action & Adventure": "💥"
+        };
+        
+        const categoryColors = {
+          "Hollywood Classics": "#ef4444",
+          "Oscar Winners": "#f59e0b",
+          "Science Fiction": "#06b6d4",
+          "Comedy": "#f97316",
+          "Drama & Romance": "#a855f7",
+          "Action & Adventure": "#10b981"
+        };
+        
+        const formattedCategories = data.map((category, index) => ({
+          id: index + 1,
+          title: category,
+          icon: categoryIcons[category] || "🎬",
+          color: categoryColors[category] || "#ef4444"
+        }));
+        
+        setCategories(formattedCategories);
+      } catch (err) {
+        console.error('Error loading categories:', err);
+        setCategories([
+          { id: 1, title: "Hollywood Classics", icon: "🎬", color: "#ef4444" },
+          { id: 2, title: "Oscar Winners", icon: "🏆", color: "#f59e0b" },
+          { id: 3, title: "Science Fiction", icon: "🚀", color: "#06b6d4" },
+          { id: 4, title: "Comedy", icon: "😂", color: "#f97316" },
+          { id: 5, title: "Drama & Romance", icon: "❤️", color: "#a855f7" },
+          { id: 6, title: "Action & Adventure", icon: "💥", color: "#10b981" },
+        ]);
+      } finally {
+        setLoading(false);
+>>>>>>> Stashed changes
       }
     }
+    
+    fetchCategories();
+  }, []);
 
+<<<<<<< Updated upstream
     if (query.length < 3) {
       setQuizzes([]);
       return;
@@ -94,6 +152,8 @@ function QuizzesPage() {
     return () => controller.abort();
   }, [query]);
 
+=======
+>>>>>>> Stashed changes
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({
@@ -109,12 +169,15 @@ function QuizzesPage() {
   const handleCategoryClick = (category) => {
     navigate(`/quiz/${encodeURIComponent(category.title)}`);
   };
+<<<<<<< Updated upstream
 
   const handleQuizClick = (quiz) => {
     navigate(`/quiz/${encodeURIComponent(quiz.category)}`, {
       state: { quizId: quiz.id },
     });
   };
+=======
+>>>>>>> Stashed changes
 
   const parallaxX = mousePosition.x * 20 - 10;
   const parallaxY = mousePosition.y * 20 - 10;
@@ -122,10 +185,14 @@ function QuizzesPage() {
   if (loading) {
     return (
       <div className="quizzes-page">
+<<<<<<< Updated upstream
         <div
           className="content"
           style={{ textAlign: "center", paddingTop: "100px" }}
         >
+=======
+        <div className="content" style={{ textAlign: 'center', paddingTop: '100px' }}>
+>>>>>>> Stashed changes
           <div className="title">Loading quizzes...</div>
         </div>
       </div>
@@ -134,7 +201,10 @@ function QuizzesPage() {
 
   return (
     <div className="quizzes-page">
+<<<<<<< Updated upstream
       <Navbar query={query} setQuery={setQuery} />
+=======
+>>>>>>> Stashed changes
       <div className="particles">
         {[...Array(15)].map((_, i) => (
           <div
@@ -160,6 +230,7 @@ function QuizzesPage() {
 
       <div className="content">
         <div className="header">
+<<<<<<< Updated upstream
           <div className="search-bar-container">
             <SearchBar query={query} setQuery={setQuery} />
           </div>
@@ -291,11 +362,78 @@ function QuizzesPage() {
                           }}
                         />
                       )}
-                    </div>
-                  );
-                })}
-              </div>
+=======
+          <div className="main-content">
+            <div className="title-container">
+              <h1 className="title">
+                <span className="title-text">
+                  Cinema
+                  <span className="title-highlight">Quizzes</span>
+                </span>
+              </h1>
+              <div className="title-underline" />
+            </div>
 
+            <p className="subtitle">
+              Choose a category to start your cinematic journey
+              <span className="subtitle-icon"> 🍿</span>
+            </p>
+
+            <div className="grid">
+              {categories.map((cat) => {
+                const isHovered = hoveredId === cat.id;
+
+                return (
+                  <div
+                    key={cat.id}
+                    className="category-card"
+                    style={{
+                      borderColor: isHovered ? cat.color : "transparent",
+                      boxShadow: isHovered
+                        ? `0 20px 40px ${cat.color}20, 0 0 0 1px ${cat.color}20`
+                        : "0 4px 20px rgba(0, 0, 0, 0.1)",
+                      transform: isHovered
+                        ? "translateY(-8px) scale(1.02)"
+                        : "translateY(0) scale(1)",
+                    }}
+                    onMouseEnter={() => setHoveredId(cat.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                    onClick={() => handleCategoryClick(cat)}
+                  >
+                    <div
+                      className="icon-glow"
+                      style={{
+                        opacity: isHovered ? 1 : 0,
+                        background: `radial-gradient(circle, ${cat.color}30, transparent 70%)`,
+                      }}
+                    />
+
+                    <div
+                      className="icon-wrapper"
+                      style={{
+                        background: isHovered
+                          ? `linear-gradient(135deg, ${cat.color}30, ${cat.color}10)`
+                          : "rgba(255, 255, 255, 0.05)",
+                        borderColor: isHovered
+                          ? cat.color
+                          : "rgba(255, 255, 255, 0.1)",
+                        transform: isHovered
+                          ? "scale(1.1) rotate(5deg)"
+                          : "scale(1) rotate(0deg)",
+                      }}
+                    >
+                      <span
+                        className="icon"
+                        style={{
+                          transform: isHovered ? "scale(1.2)" : "scale(1)",
+                        }}
+                      >
+                        {cat.icon}
+                      </span>
+>>>>>>> Stashed changes
+                    </div>
+
+<<<<<<< Updated upstream
               <div className="footer">
                 <div className="footer-content">
                   <span className="footer-icon">🎞️</span>
@@ -304,9 +442,55 @@ function QuizzesPage() {
                   </span>
                   <span className="footer-icon">✨</span>
                 </div>
+=======
+                    <h3 className="category-title">{cat.title}</h3>
+
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{
+                          width: isHovered ? "100%" : "60%",
+                          background: `linear-gradient(90deg, ${cat.color}, ${cat.color}cc)`,
+                        }}
+                      />
+                    </div>
+
+                    <div
+                      className="arrow"
+                      style={{
+                        color: isHovered ? cat.color : "#64748b",
+                        transform: isHovered
+                          ? "translateX(8px)"
+                          : "translateX(0)",
+                      }}
+                    >
+                      →
+                    </div>
+
+                    {isHovered && (
+                      <div
+                        className="shine-effect"
+                        style={{
+                          background: `linear-gradient(90deg, transparent, ${cat.color}20, transparent)`,
+                        }}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="footer">
+              <div className="footer-content">
+                <span className="footer-icon">🎞️</span>
+                <span className="footer-text">
+                  Each quiz is a unique cinematic experience
+                </span>
+                <span className="footer-icon">✨</span>
+>>>>>>> Stashed changes
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
 
@@ -315,4 +499,8 @@ function QuizzesPage() {
   );
 }
 
+<<<<<<< Updated upstream
 export default QuizzesPage;
+=======
+export default QuizzesPage;
+>>>>>>> Stashed changes
